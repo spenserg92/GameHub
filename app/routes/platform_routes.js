@@ -12,6 +12,16 @@ const router = express.Router()
 // GET /platforms
 router.get('/platforms', (req, res, next) => {
 	Platform.find()
+        .populate('owner')
+		.then((platforms) => {
+			return platforms.map((platform) => platform.toObject())
+		})
+		.then((platforms) => res.status(200).json({ platforms: platforms }))
+		.catch(next)
+})
+
+router.get('/platforms/mine', requireToken, (req, res, next) => {
+	Platform.find({owner: req.user.id})
 		.then((platforms) => {
 			return platforms.map((platform) => platform.toObject())
 		})
@@ -23,6 +33,7 @@ router.get('/platforms', (req, res, next) => {
 // GET /platforms/5a7db6c74d55bc51bdf39793
 router.get('/platforms/:id', (req, res, next) => {
 	Platform.findById(req.params.id)
+        .populate('owner')
 		.then(handle404)
 		.then((platform) => res.status(200).json({ platform: platform.toObject() }))
 		.catch(next)
