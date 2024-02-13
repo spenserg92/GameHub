@@ -7,7 +7,9 @@ const platformSchema = new mongoose.Schema(
 			required: true,
 		},
 		releaseYear: {
-			type: Date,
+			type: String,
+			min: 4,
+			max: 4,
 		},
         manufacturer: {
             type: String,
