@@ -67,8 +67,8 @@ app.use(requestLogger)
 
 // register route files
 app.use(platformRoutes)
-app.use(userRoutes)
 app.use(gameRoutes)
+app.use(userRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
