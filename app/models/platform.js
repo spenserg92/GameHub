@@ -19,11 +19,11 @@ const platformSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+		games: [gameSchema],
 		owner: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
 		},
-		games: [gameSchema]
 	},
 	{
 		timestamps: true,

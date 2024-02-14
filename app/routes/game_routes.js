@@ -28,13 +28,13 @@ router.post('/games/:platformId', removeBlanks, (req, res, next) => {
 
 // UPDATE
 // PATCH /games/5a7db6c74d55bc51bdf39793/4g6t4g65e46t4g
-router.patch('/games/:platformId/:gameId', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/games/:platformId/:gameId', removeBlanks, (req, res, next) => {
 	const {platformId, gameId} = req.params
 	Platform.findById(platformId)
 		.then(handle404)
 		.then((platform) => {
 			const theGame = platform.games.id(gameId)
-			requireOwnership(req, platform)
+			// requireOwnership(req, platform)
 			theGame.set(req.body.game)
 			return platform.save()
 		})
@@ -44,7 +44,7 @@ router.patch('/games/:platformId/:gameId', requireToken, removeBlanks, (req, res
 
 // DESTROY
 // DELETE /games/5a7db6c74d55bc51bdf39793/6516546515665
-router.delete('/games/:platformId/:gameId', requireToken, removeBlanks, (req, res, next) => {
+router.delete('/games/:platformId/:gameId', removeBlanks, (req, res, next) => {
 	// let's grab both ids from req.params
     const { platformId, gameId } = req.params
 
@@ -52,7 +52,8 @@ router.delete('/games/:platformId/:gameId', requireToken, removeBlanks, (req, re
 		.then(handle404)
 		.then((platform) => {
             const theGame = platform.games.id(gameId)
-			requireOwnership(req, pet)
+			
+			// requireOwnership(req, platform)
 
             theGame.deleteOne()
 			return platform.save()
