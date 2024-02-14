@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const gameSchema = require('./game')
 const platformSchema = new mongoose.Schema(
 	{
 		name: {
@@ -23,10 +23,7 @@ const platformSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
 		},
-		games: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Game'
-		}
+		games: [gameSchema]
 	},
 	{
 		timestamps: true,
